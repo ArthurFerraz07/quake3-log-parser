@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+ruby '3.1.3'
+
+# Awesome Prints!
+gem 'awesome_print'
+# Bunny
+gem 'bunny'
+# Dotenv
+gem 'dotenv'
+# Debugging
+gem 'pry'
+
+# Testing
+group :test do
+  # fixtures replacement
+  gem 'factory_bot'
+  # Fake data
+  gem 'faker'
+  # Unit tests
+  gem 'rspec', '~> 3.0'
+  # SimpleCov is a code coverage analysis tool for Ruby
+  gem 'simplecov'
+  # A gem providing "time travel" and "time freezing" capabilities, making it dead simple to test time-dependent code
+  gem 'timecop'
+end

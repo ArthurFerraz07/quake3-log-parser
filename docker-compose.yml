@@ -1,0 +1,40 @@
+version: '3'
+services:
+  redis:
+    image: redis:6.0
+    container_name: redis
+    ports:
+      - "6380:6379"
+
+  rabbitmq:
+    image: "rabbitmq:3.8-management"
+    container_name: quake_rabbitmq
+    ports:
+      - "5673:5672" # RabbitMQ default port
+      - "15673:15672" # RabbitMQ management UI port
+    environment:
+      RABBITMQ_DEFAULT_USER: Cl0udW@lk
+      RABBITMQ_DEFAULT_PASS: InfIniteP@y
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 30s
+      timeout: 30s
+      retries: 10
+
+  message_broker_daemon:
+    build:
+      context: .
+      dockerfile: MessageBrokerDaemon.Dockerfile
+    command: ["bundle", "exec", "ruby", "message_broker_daemon.rb"]
+    container_name: message_broker_daemon
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USERNAME=Cl0udW@lk
+      - RABBITMQ_PASSWORD=InfIniteP@y
+      - RABBITMQ_PORT=5672
+
+
+      
