@@ -39,8 +39,9 @@ RSpec.describe ReadLogUseCase do
           channel,
           'log',
           {
+            operation: 'proccess_kill',
             game_id: 1,
-            raw_kill: 'Kill: player1 killed player2'
+            content: 'Kill: player1 killed player2'
           }.to_json
         )
 
@@ -48,8 +49,9 @@ RSpec.describe ReadLogUseCase do
           channel,
           'log',
           {
+            operation: 'proccess_kill',
             game_id: 1,
-            raw_kill: 'Kill: player3 killed player4'
+            content: 'Kill: player3 killed player4'
           }.to_json
         )
 
@@ -57,8 +59,9 @@ RSpec.describe ReadLogUseCase do
           channel,
           'log',
           {
+            operation: 'proccess_kill',
             game_id: 2,
-            raw_kill: 'Kill: player2 killed player3'
+            content: 'Kill: player2 killed player3'
           }.to_json
         )
 
@@ -66,8 +69,9 @@ RSpec.describe ReadLogUseCase do
           channel,
           'log',
           {
+            operation: 'proccess_kill',
             game_id: 2,
-            raw_kill: 'Kill: player4 killed playe1'
+            content: 'Kill: player4 killed playe1'
           }.to_json
         )
 
@@ -75,8 +79,9 @@ RSpec.describe ReadLogUseCase do
           channel,
           'log',
           {
+            operation: 'proccess_kill',
             game_id: 2,
-            raw_kill: 'Kill: player5 killed playe6'
+            content: 'Kill: player5 killed playe6'
           }.to_json
         )
 

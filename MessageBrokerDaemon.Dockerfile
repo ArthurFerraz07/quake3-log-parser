@@ -7,8 +7,9 @@ WORKDIR /app
 # Copie os arquivos do aplicativo para o contêiner
 COPY Gemfile /app
 COPY Gemfile.lock /app
-COPY /src /app
+COPY /src /app/src
 COPY /inputs /app/inputs
+COPY message_broker.rb /app
 
 # Instale as dependências do Ruby necessárias para o aplicativo Rails
 RUN gem install bundler
