@@ -16,15 +16,15 @@ class ParseRawKillUseCase
     end
 
     def extract_killer(kill_info)
-      kill_info.split(' ').first
+      kill_info.split('killed').first.strip
     end
 
     def extract_killed(kill_info)
-      kill_info.split(' ')[2..-3].join(' ')
+      kill_info.split('killed').last.split('by').first.strip
     end
 
     def extract_mean_of_death(kill_info)
-      kill_info.split(' ').last
+      kill_info.split('by').last.strip
     end
   end
 end

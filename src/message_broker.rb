@@ -14,5 +14,7 @@ cache_service = app.cache_service
 channel = MessageBrokerService.create_channel(message_broker_service.connection)
 
 message_broker_service.subscribe(channel, queue) do |_delivery_info, _properties, body|
+  p "[x] Received #{body}"
+
   MessageBrokerUseCase.new(message_broker_service, cache_service).proccess(body)
 end
