@@ -16,7 +16,7 @@ class RegistryDeathUseCase
   def handle_killer_stats(killer)
     return if world_kill?(killer)
 
-    cache_service.hincrby("players_#{killer}_", , increment)
+    # cache_service.hincrby("players_#{killer}_", , increment)
   end
 
   def handle_killed_stats()

@@ -13,7 +13,7 @@ class ProccessRawKillUseCase
     ap game_id
     ap raw_kill
 
-    line_info = ParseLineUseCase.new(log_line).parse!
+    line_info = Parse
 
     RegistryDeathUseCase.registry!(line_info.game)
 

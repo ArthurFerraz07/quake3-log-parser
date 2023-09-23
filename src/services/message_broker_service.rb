@@ -7,8 +7,12 @@ class MessageBrokerService
   MISSING_CONNECTION_EXCEPTION = MessageBrokerException.new('Missing message broker connection')
 
   class << self
+    def adapter
+      Bunny
+    end
+
     def build_connection(params)
-      Bunny.new params
+      adapter.new params
     end
 
     def create_channel(connection)

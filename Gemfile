@@ -12,8 +12,6 @@ gem 'bunny'
 gem 'dotenv'
 # Json
 gem 'json'
-# Debugging
-gem 'pry'
 # Redis
 gem 'redis'
 
@@ -33,4 +31,6 @@ group :test do
   gem 'simplecov'
   # A gem providing "time travel" and "time freezing" capabilities, making it dead simple to test time-dependent code
   gem 'timecop'
+  # Debugging
+  gem 'pry'
 end

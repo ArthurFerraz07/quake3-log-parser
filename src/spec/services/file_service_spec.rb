@@ -2,7 +2,7 @@
 
 require './spec/spec_helper'
 
-describe FileService do
+RSpec.describe FileService do
   describe '.readlines' do
     context 'when the file exists' do
       let(:file_path) { 'test.txt' }

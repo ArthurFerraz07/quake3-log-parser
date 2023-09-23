@@ -7,8 +7,12 @@ class CacheService
   MISSING_CONNECTION_EXCEPTION = CacheException.new('Missing cache connection')
 
   class << self
+    def adapter
+      Redis
+    end
+
     def build_connection(params)
-      Redis.new params
+      adapter.new params
     end
 
     def flushdb
