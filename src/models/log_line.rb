@@ -2,7 +2,12 @@
 
 # This class represents a log line
 class LogLine
-  attr_accessor :game, :content
+  attr_reader :game_id, :content
+
+  def initialize(game_id, content)
+    @game_id = game_id
+    @content = content
+  end
 
   def to_h
     {

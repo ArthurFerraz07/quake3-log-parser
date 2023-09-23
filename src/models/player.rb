@@ -2,10 +2,11 @@
 
 # This class represents a game
 class Game
-  attr_accessor :total_kills, :name
+  attr_reader :name, :total_kills
 
-  def initialize
-    @total_kills = 0
+  def initialize(name, total_kills = nil)
+    @name = name
+    @total_kills = total_kills || 0
   end
 
   def to_cache

@@ -2,7 +2,7 @@
 
 # This class represents a game
 class Game
-  attr_accessor :id, :kills, :kills_by_means, :started_at
+  attr_reader :id, :kills, :kills_by_means, :started_at
 
   MEANS_OF_DEATH = %w[
     MOD_UNKNOWN
@@ -37,9 +37,11 @@ class Game
     MOD_GRAPPLE
   ].map { |e| [e, e] }.to_h.freeze
 
-  def initialize
-    @kills = {}
-    @kills_by_means = {}
+  def initialize(id, kills, kills_by_means, started_at)
+    @id = id
+    @kills = kills
+    @kills_by_means = kills_by_means
+    @started_at = started_at
   end
 
   def players

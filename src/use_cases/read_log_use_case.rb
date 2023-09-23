@@ -23,7 +23,7 @@ class ReadLogUseCase
 
       message_broker_service.publish('log', {
         game_number: current_game,
-        content: log
+        raw_kill: log
       }.to_json)
     end
   end
