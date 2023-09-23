@@ -2,18 +2,22 @@
 
 # This class read the log file and publish the line content on the message broker
 class ReadLogUseCase
-  def initialize(file_name)
-    @file_name = file_name
+  def initialize(message_broker_service)
+    @message_broker_service = message_broker_service
   end
 
-  def read!
-    load_file_lines
+  def read!(file_name)
+    CacheService.flushdb
 
-    message_broker_service = MessageBrokerService.new
     current_game = 0
 
-    @file_lines.each do |log|
-      current_game += 1 if log.include?('InitGame')
+    lines = FileService.readlines(file_name)
+
+    lines.each do |log|
+      if log.include?('InitGame')
+        current_game += 1
+        next
+      end
 
       next unless log.include?('Kill')
 
@@ -22,11 +26,5 @@ class ReadLogUseCase
         content: log
       }.to_json)
     end
-  end
-
-  private
-
-  def load_file_lines
-    @file_lines = FileService.readlines(@file_name)
   end
 end

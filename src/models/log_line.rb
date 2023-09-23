@@ -6,8 +6,8 @@ class LogLine
 
   def to_h
     {
-      game: @game,
-      content: @content
+      game:,
+      content:
     }
   end
 end

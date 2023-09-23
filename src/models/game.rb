@@ -2,7 +2,7 @@
 
 # This class represents a game
 class Game
-  attr_accessor :players, :kills, :name, :kills_by_means, :started_at
+  attr_accessor :id, :kills, :kills_by_means, :started_at
 
   MEANS_OF_DEATH = %w[
     MOD_UNKNOWN
@@ -35,12 +35,15 @@ class Game
     MOD_KAMIKAZE
     MOD_JUICED
     MOD_GRAPPLE
-  ].map { |e| [e, e] }.to_a.freeze
+  ].map { |e| [e, e] }.to_h.freeze
 
   def initialize
-    @players = []
     @kills = {}
     @kills_by_means = {}
+  end
+
+  def players
+    kills.keys
   end
 
   def to_h

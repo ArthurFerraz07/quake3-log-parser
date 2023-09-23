@@ -8,10 +8,12 @@ class Game
     @total_kills = 0
   end
 
-  def to_h
+  def to_cache
     {
-      name:,
-      total_kills:
+      name =>
+      {
+        total_kills:
+      }
     }
   end
 end

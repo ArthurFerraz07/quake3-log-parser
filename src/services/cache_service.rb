@@ -4,34 +4,41 @@ class CacheException < StandardError; end
 
 # This class privides an interface to interact redis cache
 class CacheService
-  @connection = nil
+  MISSING_CONNECTION_EXCEPTION = CacheException.new('Missing cache connection')
 
   class << self
-    def connection
-      raise CacheException, 'Missing cache connection' unless @connection
-
-      @connection
-    end
-
     def build_connection(params)
-      @connection = Redis.new params
-      @connection
+      Redis.new params
     end
 
-    def set(key, value)
-      connection.set(key, value)
+    def flushdb
+      Redis.flushdb
     end
+  end
 
-    def hset(key, value)
-      connection.hset(key, value)
-    end
+  def initialize(connection)
+    @connection = connection
+  end
 
-    def get(key)
-      connection.get(key)
-    end
+  def connection
+    raise MISSING_CONNECTION_EXCEPTION unless @connection
 
-    def hincrby(key, field, increment)
-      connection.hincrby(key, field, increment)
-    end
+    @connection
+  end
+
+  def set(key, value)
+    connection.set(key, value)
+  end
+
+  def hset(key, value)
+    connection.hset(key, value)
+  end
+
+  def get(key)
+    connection.get(key)
+  end
+
+  def hincrby(key, field, increment)
+    connection.hincrby(key, field, increment)
   end
 end
