@@ -4,28 +4,25 @@ class MessageBrokerException < StandardError; end
 
 # This class handle the rabbitmq connection
 class MessageBrokerService
-  @message_broker_connection = nil
+  @connection = nil
 
   class << self
     def connection
-      raise MessageBrokerException, 'Missing message broker connection' unless @message_broker_connection
+      raise MessageBrokerException, 'Missing message broker connection' unless @connection
 
-      @message_broker_connection
+      @connection
     end
 
     def build_connection(params)
-      @message_broker_connection = Bunny.new params
-      @message_broker_connection.start
+      @connection = Bunny.new params
+      @connection.start
 
-      @message_broker_connection
+      @connection
     end
   end
 
-  attr_reader :connection, :channel
-
   def initialize
-    @connection = self.class.connection
-    @channel = @connection.create_channel
+    @channel = self.class.connection.create_channel
   end
 
   def publish(queue, message)

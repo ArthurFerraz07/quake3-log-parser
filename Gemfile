@@ -10,8 +10,12 @@ gem 'awesome_print'
 gem 'bunny'
 # Dotenv
 gem 'dotenv'
+# Json
+gem 'json'
 # Debugging
 gem 'pry'
+# Redis
+gem 'redis'
 
 # Testing
 group :test do

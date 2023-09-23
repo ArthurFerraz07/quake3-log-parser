@@ -29,4 +29,8 @@ class Application
   def build_message_broker_connection(params)
     MessageBrokerService.build_connection(params)
   end
+
+  def build_cache_connection(params)
+    CacheService.build_connection(params)
+  end
 end

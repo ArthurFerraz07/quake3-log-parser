@@ -2,11 +2,13 @@
 FROM ruby:3.1.3
 
 # Crie o diretório de trabalho para o aplicativo
-RUN mkdir -p /message_broker_daemon
-WORKDIR /message_broker_daemon
+WORKDIR /app
 
 # Copie os arquivos do aplicativo para o contêiner
-COPY ./* /message_broker_daemon
+COPY Gemfile /app
+COPY Gemfile.lock /app
+COPY /src /app
+COPY /inputs /app/inputs
 
 # Instale as dependências do Ruby necessárias para o aplicativo Rails
 RUN gem install bundler

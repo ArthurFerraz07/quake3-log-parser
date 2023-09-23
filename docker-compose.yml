@@ -2,7 +2,7 @@ version: '3'
 services:
   redis:
     image: redis:6.0
-    container_name: redis
+    container_name: quake_redis
     ports:
       - "6380:6379"
 
@@ -17,16 +17,16 @@ services:
       RABBITMQ_DEFAULT_PASS: InfIniteP@y
     healthcheck:
       test: rabbitmq-diagnostics check_port_connectivity
-      interval: 30s
+      interval: 10s
       timeout: 30s
-      retries: 10
+      retries: 15
 
-  message_broker_daemon:
+  message_broker_daemon_cluster_1:
     build:
       context: .
       dockerfile: MessageBrokerDaemon.Dockerfile
-    command: ["bundle", "exec", "ruby", "message_broker_daemon.rb"]
-    container_name: message_broker_daemon
+    command: ["bundle", "exec", "ruby", "message_broker.rb", "log"]
+    container_name: message_broker_daemon_cluster_1
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -35,6 +35,51 @@ services:
       - RABBITMQ_USERNAME=Cl0udW@lk
       - RABBITMQ_PASSWORD=InfIniteP@y
       - RABBITMQ_PORT=5672
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
 
+  # message_broker_daemon_cluster_2:
+  #   build:
+  #     context: .
+  #     dockerfile: MessageBrokerDaemon.Dockerfile
+  #   command: ["bundle", "exec", "ruby", "message_broker.rb", "log"]
+  #   container_name: message_broker_daemon_cluster_2
+  #   depends_on:
+  #     rabbitmq:
+  #       condition: service_healthy
+  #   environment:
+  #     - RABBITMQ_HOST=rabbitmq
+  #     - RABBITMQ_USERNAME=Cl0udW@lk
+  #     - RABBITMQ_PASSWORD=InfIniteP@y
+  #     - RABBITMQ_PORT=5672
+  
+  # message_broker_daemon_cluster_3:
+  #   build:
+  #     context: .
+  #     dockerfile: MessageBrokerDaemon.Dockerfile
+  #   command: ["bundle", "exec", "ruby", "message_broker.rb", "log"]
+  #   container_name: message_broker_daemon_cluster_3
+  #   depends_on:
+  #     rabbitmq:
+  #       condition: service_healthy
+  #   environment:
+  #     - RABBITMQ_HOST=rabbitmq
+  #     - RABBITMQ_USERNAME=Cl0udW@lk
+  #     - RABBITMQ_PASSWORD=InfIniteP@y
+  #     - RABBITMQ_PORT=5672
 
-      
+  # message_broker_daemon_cluster_4:
+  #   build:
+  #     context: .
+  #     dockerfile: MessageBrokerDaemon.Dockerfile
+  #   command: ["bundle", "exec", "ruby", "message_broker.rb", "log"]
+  #   container_name: message_broker_daemon_cluster_4
+  #   depends_on:
+  #     rabbitmq:
+  #       condition: service_healthy
+  #   environment:
+  #     - RABBITMQ_HOST=rabbitmq
+  #     - RABBITMQ_USERNAME=Cl0udW@lk
+  #     - RABBITMQ_PASSWORD=InfIniteP@y
+  #     - RABBITMQ_PORT=5672
+
