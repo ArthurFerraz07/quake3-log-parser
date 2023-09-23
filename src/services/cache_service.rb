@@ -14,10 +14,6 @@ class CacheService
     def build_connection(params)
       adapter.new params
     end
-
-    def flushdb
-      Redis.flushdb
-    end
   end
 
   def initialize(connection)
@@ -44,5 +40,9 @@ class CacheService
 
   def hincrby(key, field, increment)
     connection.hincrby(key, field, increment)
+  end
+
+  def flushall
+    connection.flushall
   end
 end

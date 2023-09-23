@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Bundler.require(:default)
 
 Dotenv.load
@@ -13,16 +11,18 @@ require './application'
 
 app = Application.instance
 
-app.build_message_broker_connection(
+message_broker_params = {
   host: ENV['RABBITMQ_HOST'],
   username: ENV['RABBITMQ_USERNAME'],
   password: ENV['RABBITMQ_PASSWORD'],
   port: ENV['RABBITMQ_PORT']
-)
+}
 
-app.build_cache_connection(
+cache_params = {
   host: ENV['REDIS_HOST'],
   port: ENV['REDIS_PORT']
-)
+}
 
-app.run!
+app.run!(message_broker_params, cache_params)
+
+app.message_broker_service.start_connection

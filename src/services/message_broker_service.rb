@@ -6,6 +6,8 @@ class MessageBrokerException < StandardError; end
 class MessageBrokerService
   MISSING_CONNECTION_EXCEPTION = MessageBrokerException.new('Missing message broker connection')
 
+  attr_accessor :started
+
   class << self
     def adapter
       Bunny
@@ -42,8 +44,10 @@ class MessageBrokerService
 
   def start_connection
     raise MISSING_CONNECTION_EXCEPTION unless @connection
+    raise MessageBrokerException, 'Connection already started!' if @started
 
     @connection.start
+    @started = true
   end
 
   def close_connection

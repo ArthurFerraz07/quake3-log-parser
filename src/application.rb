@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+class ApplicationException < StandardError; end
+
 # This class handle the application instance
 class Application
   @instance = nil
   private_class_method :new
 
-  attr_accessor :message_broker_connection
-  attr_reader :started_at
+  attr_reader :started_at, :cache_service, :message_broker_service
 
   class << self
     def instance
@@ -21,16 +22,14 @@ class Application
     @started_at = started_at
   end
 
-  def run!
+  def run!(message_broker_params, cache_params)
+    raise ApplicationException, 'Missing message broker connection params' unless message_broker_params
+    raise ApplicationException, 'Missing cache connection params' unless cache_params
+
+    @message_broker_service = MessageBrokerService.new(MessageBrokerService.build_connection(message_broker_params))
+    @cache_service = CacheService.new(CacheService.build_connection(cache_params))
+
     p 'Application is running!'
     p "Started at: #{@started_at}"
-  end
-
-  def build_message_broker_connection(params)
-    MessageBrokerService.build_connection(params)
-  end
-
-  def build_cache_connection(params)
-    CacheService.build_connection(params)
   end
 end

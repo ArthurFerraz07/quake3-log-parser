@@ -2,12 +2,14 @@
 
 # This class read the log file and publish the line content on the message broker
 class ReadLogUseCase
-  def initialize(message_broker_service)
+  def initialize(cache_service, message_broker_service, channel)
+    @cache_service = cache_service
     @message_broker_service = message_broker_service
+    @channel = channel
   end
 
   def read!(file_name)
-    CacheService.flushdb
+    @cache_service.flushall
 
     current_game = 0
 
@@ -21,8 +23,8 @@ class ReadLogUseCase
 
       next unless log.include?('Kill')
 
-      message_broker_service.publish('log', {
-        game_number: current_game,
+      @message_broker_service.publish(@channel, 'log', {
+        game_id: current_game,
         raw_kill: log
       }.to_json)
     end

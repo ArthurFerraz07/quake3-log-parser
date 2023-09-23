@@ -13,10 +13,8 @@ class ProccessRawKillUseCase
     ap game_id
     ap raw_kill
 
-    line_info = Parse
+    # line_info = Parse
 
-    RegistryDeathUseCase.registry!(line_info.game)
-
-    @cache_service.hincrby(log_line.game, 'total_kills', 1)
+    # RegistryDeathUseCase.registry!(kill)
   end
 end
