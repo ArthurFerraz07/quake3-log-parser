@@ -9,12 +9,11 @@ class ProccessRawKillUseCase
     @cache_service = cache_service
   end
 
-  def proccess!(game_id, raw_kill)
-    ap game_id
-    ap raw_kill
+  def proccess!(log_line)
+    return if log_line.content.nil? || log_line.content.empty?
 
-    # line_info = Parse
+    kill = ParseRawKillUseCase.parse!(log_line)
 
-    # RegistryDeathUseCase.registry!(kill)
+    RegistryDeathUseCase.new(@cache_service).registry!(kill)
   end
 end

@@ -11,8 +11,10 @@ class LogLine
 
   def to_h
     {
-      game:,
-      content:
+      log_line: {
+        game:,
+        content:
+      }
     }
   end
 end

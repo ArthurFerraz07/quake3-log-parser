@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
-require './config'
+require './program'
 
 queue = ARGV[0]
 
 puts "[*] Waiting for messages on #{queue}. To exit press CTRL+C"
 
-message_broker_service = Application.instance.message_broker_service
-cache_service = Application.instance.cache_service
+app = Application.instance
+
+message_broker_service = app.message_broker_service
+cache_service = app.cache_service
 
 channel = MessageBrokerService.create_channel(message_broker_service.connection)
 
-Application.instance.message_broker_service.subscribe(channel, queue) do |_delivery_info, _properties, body|
-  ProcessKillWorker.new(cache_service).perform(body)
+message_broker_service.subscribe(channel, queue) do |_delivery_info, _properties, body|
+  MessageBrokerUseCase.new(message_broker_service, cache_service).proccess(body)
 end

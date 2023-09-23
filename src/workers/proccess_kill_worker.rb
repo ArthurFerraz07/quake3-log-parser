@@ -15,6 +15,6 @@ class ProcessKillWorker
   rescue StandardError => e
     puts 'Error on ProcessKillWorker'
     puts e.message
-    puts e.backtrace
+    puts message
   end
 end

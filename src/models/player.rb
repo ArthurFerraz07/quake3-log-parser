@@ -2,18 +2,17 @@
 
 # This class represents a game
 class Game
-  attr_reader :name, :total_kills
+  attr_reader :name, :score
 
-  def initialize(name, total_kills = nil)
+  def initialize(name, score = nil)
     @name = name
-    @total_kills = total_kills || 0
+    @score = score || 0
   end
 
   def to_cache
     {
-      name =>
-      {
-        total_kills:
+      name => {
+        score:
       }
     }
   end

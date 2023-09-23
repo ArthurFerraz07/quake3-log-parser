@@ -16,6 +16,8 @@ class ReadLogUseCase
     lines = FileService.readlines(file_name)
 
     lines.each do |log|
+      # break if current_game == 4
+
       if log.include?('InitGame')
         current_game += 1
         next
@@ -24,9 +26,12 @@ class ReadLogUseCase
       next unless log.include?('Kill')
 
       @message_broker_service.publish(@channel, 'log', {
+        operation: 'proccess_kill',
         game_id: current_game,
-        raw_kill: log
+        content: log
       }.to_json)
     end
+
+    @cache_service.set('games_count', current_game)
   end
 end

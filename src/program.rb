@@ -20,7 +20,7 @@ message_broker_params = {
 
 cache_params = {
   host: ENV['REDIS_HOST'],
-  port: ENV['REDIS_PORT']
+  port: ENV['REDIS_PORT'].to_i
 }
 
 app.run!(message_broker_params, cache_params)

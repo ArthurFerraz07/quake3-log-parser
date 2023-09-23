@@ -14,6 +14,7 @@ RSpec.describe ReadLogUseCase do
     allow(cache_service).to receive(:flushall)
     allow(FileService).to receive(:readlines).with(file_name).and_return(log_lines)
     allow(message_broker_service).to receive(:publish)
+    allow(cache_service).to receive(:set)
   end
 
   describe '#read!' do

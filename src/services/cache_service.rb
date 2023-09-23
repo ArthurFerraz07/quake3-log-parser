@@ -45,4 +45,12 @@ class CacheService
   def flushall
     connection.flushall
   end
+
+  def lpush(key, value)
+    connection.lpush(key, value)
+  end
+
+  def lrange(key, start, stop)
+    connection.lrange(key, start, stop)
+  end
 end

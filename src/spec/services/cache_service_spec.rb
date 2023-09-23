@@ -66,4 +66,27 @@ RSpec.describe CacheService do
       cache_service.hincrby(key, field, increment)
     end
   end
+
+  describe '#flushall' do
+    it 'flushes the cache' do
+      expect(adapter_mock).to receive(:flushall)
+      cache_service.flushall
+    end
+  end
+
+  describe '#lpush' do
+    it 'pushes a value into a list' do
+      expect(adapter_mock).to receive(:lpush).with(key, value)
+      cache_service.lpush(key, value)
+    end
+  end
+
+  describe '#lrange' do
+    it 'gets a range of values from a list' do
+      start = 0
+      stop = -1
+      expect(adapter_mock).to receive(:lrange).with(key, start, stop)
+      cache_service.lrange(key, start, stop)
+    end
+  end
 end
