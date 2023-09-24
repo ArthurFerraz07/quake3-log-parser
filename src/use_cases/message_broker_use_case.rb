@@ -11,8 +11,6 @@ class MessageBrokerUseCase
   def proccess(body)
     parsed_body = JSON.parse(body)
 
-    ap parsed_body if ENV['log_messages'] == 'true'
-
     case parsed_body['operation']
     when 'proccess_kill'
       ProcessKillWorker.new(@cache_service, @message_broker_service, @channel).perform(parsed_body)

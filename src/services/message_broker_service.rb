@@ -25,8 +25,6 @@ class MessageBrokerService
   end
 
   def publish(channel, queue, message)
-    ap "Publishing message: #{message} to queue: #{queue}"
-
     channel.default_exchange.publish(message, routing_key: queue)
 
     true
