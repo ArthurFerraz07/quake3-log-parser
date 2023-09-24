@@ -18,8 +18,6 @@ class ReadLogUseCase
     last_kill_log = lines.reverse.find { |log| log.include?('Kill') }
 
     lines.each do |log|
-      # break if current_game == 4
-
       if log.include?('InitGame')
         current_game += 1
 
