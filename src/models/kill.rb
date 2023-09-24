@@ -43,15 +43,4 @@ class Kill
     @killed = killed
     @mean_of_death = mean_of_death
   end
-
-  def to_h
-    {
-      mean_of_death.to_sym => {
-        game_id:,
-        killer:,
-        killed:,
-        mean_of_death:
-      }
-    }
-  end
 end

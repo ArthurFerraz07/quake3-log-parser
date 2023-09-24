@@ -14,14 +14,4 @@ class Game
   def players
     kills.keys
   end
-
-  def to_h
-    {
-      id.to_s.to_sym => {
-        players:,
-        kills:,
-        kills_by_means:
-      }
-    }
-  end
 end

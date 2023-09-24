@@ -10,13 +10,4 @@ class LogLine
     @last_kill = last_kill
   end
 
-  def to_h
-    {
-      log_line: {
-        game:,
-        content:,
-        last_kill:
-      }
-    }
-  end
 end

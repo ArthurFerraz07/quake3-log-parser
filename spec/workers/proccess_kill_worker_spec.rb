@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './spec/spec_helper'
-
 RSpec.describe ProcessKillWorker do
   let(:cache_service) { double('CacheService') }
   let(:message_broker_service) { double('MessageBrokerService') }

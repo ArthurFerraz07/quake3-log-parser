@@ -1,4 +1,4 @@
-# Assume you have already set up RSpec and configured it.
+# frozen_string_literal: true
 
 RSpec.describe Game do
   let(:game_id) { 1 }
@@ -36,19 +36,6 @@ RSpec.describe Game do
     it 'returns the list of players' do
       expected_players = kills.keys
       expect(game.players).to eq(expected_players)
-    end
-  end
-
-  describe '#to_h' do
-    it 'returns a hash representation of the game' do
-      expected_hash = {
-        game_id.to_s.to_sym => {
-          players: game.players,
-          kills: game.kills,
-          kills_by_means: game.kills_by_means
-        }
-      }
-      expect(game.to_h).to eq(expected_hash)
     end
   end
 end

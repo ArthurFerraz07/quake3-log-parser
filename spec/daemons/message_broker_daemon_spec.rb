@@ -1,7 +1,5 @@
 # string_frozen_literal: true
 
-require './spec/spec_helper'
-
 RSpec.describe MessageBrokerDaemon do
   let(:message_broker_service) { double('MessageBrokerService') }
   let(:cache_service) { double('CacheService') }
@@ -14,7 +12,7 @@ RSpec.describe MessageBrokerDaemon do
   describe '#run!' do
     it 'prints a message and subscribes to the queue' do
       expect(message_broker_service).to receive(:subscribe).with(channel, queue_name).and_yield(
-       ' delivery_info',
+        ' delivery_info',
         'properties',
         'message_body'
       )

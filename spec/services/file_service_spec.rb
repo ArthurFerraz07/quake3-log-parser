@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './spec/spec_helper'
-
 RSpec.describe FileService do
   describe '.readlines' do
     context 'when the file exists' do

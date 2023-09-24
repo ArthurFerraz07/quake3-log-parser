@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './spec/spec_helper'
-
 RSpec.describe ProcessReportWorker do
   let(:cache_service) { double('CacheService') }
   let(:use_case) { instance_double(ProccessReportUseCase) }

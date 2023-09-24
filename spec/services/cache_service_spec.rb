@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './spec/spec_helper'
-
 RSpec.describe CacheService do
   let(:adapter_mock) { MockRedis.new }
   let(:cache_service) { CacheService.new(adapter_mock) }

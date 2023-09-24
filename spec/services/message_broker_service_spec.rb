@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './spec/spec_helper'
-
 RSpec.describe MessageBrokerService do
   let(:adapter_mock) { BunnyMock.new }
   let(:message_broker) { MessageBrokerService.new(adapter_mock) }

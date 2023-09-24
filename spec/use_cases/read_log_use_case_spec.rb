@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require './spec/spec_helper'
-
 RSpec.describe ReadLogUseCase do
   let(:cache_service) { instance_double('CacheService') }
   let(:message_broker_service) { instance_double('MessageBrokerService') }

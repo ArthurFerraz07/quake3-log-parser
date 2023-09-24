@@ -8,12 +8,4 @@ class Player
     @name = name
     @score = score || 0
   end
-
-  def to_cache
-    {
-      name => {
-        score:
-      }
-    }
-  end
 end
