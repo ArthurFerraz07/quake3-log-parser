@@ -15,4 +15,6 @@ channel = MessageBrokerService.create_channel(app.message_broker_service.connect
 
 app.message_broker_service.publish(channel, 'runner', { operation: 'read_log', file: }.to_json)
 
+binding.pry
+
 app.message_broker_service.close_connection

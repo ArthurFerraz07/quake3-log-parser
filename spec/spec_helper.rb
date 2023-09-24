@@ -10,4 +10,5 @@ Dir['./src/use_cases/*.rb'].each { |file| require "./#{file}" }
 Dir['./src/workers/*.rb'].each { |file| require "./#{file}" }
 Dir['./src/*.rb'].each { |file| require "./#{file}" }
 
+Bundler.require(:default)
 Bundler.require(:test)

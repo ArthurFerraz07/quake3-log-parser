@@ -9,24 +9,28 @@ class ProccessReportUseCase
   def proccess!
     games_count = @cache_service.get('games_count').to_i
 
+    players_rank = nil
+    games = nil
+    kills_by_means = nil
+
     Async do |task|
       task.async do
-        report_players_rank
+        players_rank = report_players_rank
       end
 
       task.async do
-        report_games_base_data(games_count)
+        games = report_games_base_data(games_count)
       end
 
       task.async do
-        report_games_kills_by_means(games_count)
+        kills_by_means = report_games_kills_by_means(games_count)
       end
     end
 
     report = {
-      players_rank: @players_rank,
-      games: @games,
-      kills_by_means: @kills_by_means
+      players_rank:,
+      games:,
+      kills_by_means:
     }
 
     ap report
