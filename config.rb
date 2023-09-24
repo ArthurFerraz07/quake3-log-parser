@@ -24,5 +24,3 @@ cache_params = {
 }
 
 app.run!(message_broker_params, cache_params)
-
-app.message_broker_service.start_connection

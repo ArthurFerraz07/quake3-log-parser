@@ -2,10 +2,14 @@
 
 require './config'
 
-queue = ARGV[0]
+queue = ARGV[0] || 'log'
 
 app = Application.instance
 
+app.message_broker_service.start_connection
+
 channel = MessageBrokerService.create_channel(app.message_broker_service.connection)
 
-MessageBrokerDaemon.new(app.message_broker_service, app.cache_service, channel).run!(ARGV[0])
+MessageBrokerDaemon.new(app.message_broker_service, app.cache_service, channel).run!(queue)
+
+app.message_broker_service.close_connection

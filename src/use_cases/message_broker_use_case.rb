@@ -11,7 +11,7 @@ class MessageBrokerUseCase
   def proccess(body)
     parsed_body = JSON.parse(body)
 
-    # ap parsed_body
+    ap parsed_body if ENV['log_messages'] == 'true'
 
     case parsed_body['operation']
     when 'proccess_kill'

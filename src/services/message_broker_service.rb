@@ -4,8 +4,6 @@ class MessageBrokerException < StandardError; end
 
 # This class handle the rabbitmq connection
 class MessageBrokerService
-  MISSING_CONNECTION_EXCEPTION = MessageBrokerException.new('Missing message broker connection')
-
   attr_accessor :started
 
   class << self
@@ -27,6 +25,8 @@ class MessageBrokerService
   end
 
   def publish(channel, queue, message)
+    ap "Publishing message: #{message} to queue: #{queue}"
+
     channel.default_exchange.publish(message, routing_key: queue)
 
     true
@@ -37,22 +37,19 @@ class MessageBrokerService
   end
 
   def connection
-    raise MISSING_CONNECTION_EXCEPTION unless @connection
+    raise MessageBrokerException, 'Missing message broker connection' unless @connection
 
     @connection
   end
 
   def start_connection
-    raise MISSING_CONNECTION_EXCEPTION unless @connection
     raise MessageBrokerException, 'Connection already started!' if @started
 
-    @connection.start
+    connection.start
     @started = true
   end
 
   def close_connection
-    raise MISSING_CONNECTION_EXCEPTION unless @connection
-
-    @connection.close
+    connection.close
   end
 end

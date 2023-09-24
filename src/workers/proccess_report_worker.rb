@@ -11,6 +11,5 @@ class ProcessReportWorker
   rescue StandardError => e
     puts 'Error on ProcessReportWorker'
     puts e.message
-    puts message
   end
 end

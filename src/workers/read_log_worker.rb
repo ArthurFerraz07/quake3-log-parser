@@ -17,6 +17,5 @@ class ReadLogWorker
   rescue StandardError => e
     puts 'Error on ReadLogWorker'
     puts e.message
-    puts message
   end
 end
