@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This class represents a game
-class Game
+class Player
   attr_reader :name, :score
 
   def initialize(name, score = nil)

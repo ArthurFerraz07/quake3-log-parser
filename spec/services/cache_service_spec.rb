@@ -48,16 +48,6 @@ RSpec.describe CacheService do
     end
   end
 
-  describe '#hset' do
-    it 'sets a hash field in the cache' do
-      hash = {
-        'key' => 'value'
-      }
-      expect(adapter_mock).to receive(:hset).with(key, hash)
-      cache_service.hset(key, hash)
-    end
-  end
-
   describe '#hincrby' do
     it 'increments a hash field in the cache' do
       field = 'field_name'
@@ -74,19 +64,10 @@ RSpec.describe CacheService do
     end
   end
 
-  describe '#lpush' do
-    it 'pushes a value into a list' do
-      expect(adapter_mock).to receive(:lpush).with(key, value)
-      cache_service.lpush(key, value)
-    end
-  end
-
-  describe '#lrange' do
-    it 'gets a range of values from a list' do
-      start = 0
-      stop = -1
-      expect(adapter_mock).to receive(:lrange).with(key, start, stop)
-      cache_service.lrange(key, start, stop)
+  describe '#hgetall' do
+    it 'gets all the fields from a hash' do
+      expect(adapter_mock).to receive(:hgetall).with(key)
+      cache_service.hgetall(key)
     end
   end
 end

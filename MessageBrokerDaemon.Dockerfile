@@ -9,6 +9,7 @@ COPY Gemfile /app
 COPY Gemfile.lock /app
 COPY /src /app/src
 COPY /inputs /app/inputs
+COPY config.rb /app
 COPY message_broker.rb /app
 
 # Instale as dependências do Ruby necessárias para o aplicativo Rails

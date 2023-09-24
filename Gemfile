@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 
 ruby '3.1.3'
 
+# Async
+gem 'async'
 # Awesome Prints!
 gem 'awesome_print'
 # Bunny
@@ -14,6 +16,8 @@ gem 'dotenv'
 gem 'json'
 # Redis
 gem 'redis'
+# Debugging
+gem 'pry'
 
 # Testing
 group :test do
@@ -31,6 +35,4 @@ group :test do
   gem 'simplecov'
   # A gem providing "time travel" and "time freezing" capabilities, making it dead simple to test time-dependent code
   gem 'timecop'
-  # Debugging
-  gem 'pry'
 end

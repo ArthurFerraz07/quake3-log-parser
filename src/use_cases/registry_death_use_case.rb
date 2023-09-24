@@ -17,20 +17,24 @@ class RegistryDeathUseCase
 
   private
 
+  # Assyntotic complexity: O(1)
   def handle_killer_stats(kill)
     @cache_service.hincrby("games_#{kill.game_id}_kills_by_means", kill.mean_of_death, 1)
     return if world_kill?(kill.killer)
 
-    @cache_service.hincrby("players_#{kill.killer}", 'score', 1)
+    @cache_service.hincrby('players_scores', kill.killer, 1)
     @cache_service.hincrby("games_#{kill.game_id}_kills", kill.killer, 1)
   end
 
+  # Assyntotic complexity: O(1)
   def handle_killed_stats(kill)
     return unless world_kill?(kill.killer)
 
-    @cache_service.hincrby("players_#{kill.killed}", 'score', -1)
+    @cache_service.hincrby('players_scores', kill.killed, -1)
+    @cache_service.hincrby("games_#{kill.game_id}_kills", kill.killed, -1)
   end
 
+  # Assyntotic complexity: O(1)
   def handle_game_stats(kill)
     @cache_service.hincrby("games_#{kill.game_id}", 'total_kills', 1)
 
@@ -38,12 +42,11 @@ class RegistryDeathUseCase
     registry_player(kill.game_id, kill.killed)
   end
 
+  # Assyntotic complexity: O(1)
   def registry_player(game_id, player)
     return if world_kill?(player)
 
-    registered_players = @cache_service.lrange("games_#{game_id}_players", 0, -1)
-
-    @cache_service.lpush("games_#{game_id}_players", player) unless registered_players.include?(player)
+    @cache_service.hincrby("games_#{game_id}_players", player, 0)
   end
 
   def world_kill?(killer)

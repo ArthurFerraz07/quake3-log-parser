@@ -2,18 +2,20 @@
 
 # This class represents a log line
 class LogLine
-  attr_reader :game_id, :content
+  attr_reader :game_id, :content, :last_kill
 
-  def initialize(game_id, content)
+  def initialize(game_id, content, last_kill: false)
     @game_id = game_id
     @content = content
+    @last_kill = last_kill
   end
 
   def to_h
     {
       log_line: {
         game:,
-        content:
+        content:,
+        last_kill:
       }
     }
   end

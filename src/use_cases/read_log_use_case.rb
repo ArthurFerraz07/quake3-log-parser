@@ -15,11 +15,16 @@ class ReadLogUseCase
 
     lines = FileService.readlines(file_name)
 
+    last_kill_log = lines.reverse.find { |log| log.include?('Kill') }
+
     lines.each do |log|
       # break if current_game == 4
 
       if log.include?('InitGame')
         current_game += 1
+
+        @cache_service.set('games_count', current_game)
+
         next
       end
 
@@ -28,10 +33,9 @@ class ReadLogUseCase
       @message_broker_service.publish(@channel, 'log', {
         operation: 'proccess_kill',
         game_id: current_game,
-        content: log
+        content: log,
+        last_kill: last_kill_log == log
       }.to_json)
     end
-
-    @cache_service.set('games_count', current_game)
   end
 end

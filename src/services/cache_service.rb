@@ -30,10 +30,6 @@ class CacheService
     connection.set(key, value)
   end
 
-  def hset(key, value)
-    connection.hset(key, value)
-  end
-
   def get(key)
     connection.get(key)
   end
@@ -46,11 +42,7 @@ class CacheService
     connection.flushall
   end
 
-  def lpush(key, value)
-    connection.lpush(key, value)
-  end
-
-  def lrange(key, start, stop)
-    connection.lrange(key, start, stop)
+  def hgetall(key)
+    connection.hgetall(key)
   end
 end

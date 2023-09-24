@@ -13,7 +13,6 @@ RSpec.describe ReadLogUseCase do
   before do
     allow(cache_service).to receive(:flushall)
     allow(FileService).to receive(:readlines).with(file_name).and_return(log_lines)
-    allow(message_broker_service).to receive(:publish)
     allow(cache_service).to receive(:set)
   end
 
@@ -85,6 +84,8 @@ RSpec.describe ReadLogUseCase do
           }.to_json
         )
 
+        expect(cache_service).to receive(:set).with('games_count', 2)
+
         read_log_use_case.read!(file_name)
       end
     end
@@ -100,8 +101,8 @@ RSpec.describe ReadLogUseCase do
       it 'does not publish any log entries' do
         expect(cache_service).to receive(:flushall)
         expect(FileService).to receive(:readlines).with(file_name).and_return(log_lines)
+        expect(cache_service).to receive(:set).with('games_count', 0)
 
-        expect(message_broker_service).not_to receive(:publish)
 
         read_log_use_case.read!(file_name)
       end
