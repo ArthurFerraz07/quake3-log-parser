@@ -40,7 +40,8 @@ RSpec.describe ReadLogUseCase do
           {
             operation: 'proccess_kill',
             game_id: 1,
-            content: 'Kill: player1 killed player2'
+            content: 'Kill: player1 killed player2',
+            last_kill: false
           }.to_json
         )
 
@@ -50,7 +51,8 @@ RSpec.describe ReadLogUseCase do
           {
             operation: 'proccess_kill',
             game_id: 1,
-            content: 'Kill: player3 killed player4'
+            content: 'Kill: player3 killed player4',
+            last_kill: false
           }.to_json
         )
 
@@ -60,7 +62,8 @@ RSpec.describe ReadLogUseCase do
           {
             operation: 'proccess_kill',
             game_id: 2,
-            content: 'Kill: player2 killed player3'
+            content: 'Kill: player2 killed player3',
+            last_kill: false
           }.to_json
         )
 
@@ -70,7 +73,8 @@ RSpec.describe ReadLogUseCase do
           {
             operation: 'proccess_kill',
             game_id: 2,
-            content: 'Kill: player4 killed playe1'
+            content: 'Kill: player4 killed playe1',
+            last_kill: false
           }.to_json
         )
 
@@ -80,7 +84,8 @@ RSpec.describe ReadLogUseCase do
           {
             operation: 'proccess_kill',
             game_id: 2,
-            content: 'Kill: player5 killed playe6'
+            content: 'Kill: player5 killed playe6',
+            last_kill: true
           }.to_json
         )
 
@@ -93,6 +98,7 @@ RSpec.describe ReadLogUseCase do
     context 'when the log file does not contain relevant data' do
       let(:log_lines) do
         [
+          'InitGame: 1',
           'MapStarted: map1',
           'EndGame: 1'
         ]
@@ -101,8 +107,7 @@ RSpec.describe ReadLogUseCase do
       it 'does not publish any log entries' do
         expect(cache_service).to receive(:flushall)
         expect(FileService).to receive(:readlines).with(file_name).and_return(log_lines)
-        expect(cache_service).to receive(:set).with('games_count', 0)
-
+        expect(cache_service).to receive(:set).with('games_count', 1)
 
         read_log_use_case.read!(file_name)
       end

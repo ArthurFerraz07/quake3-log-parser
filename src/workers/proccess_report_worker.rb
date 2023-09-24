@@ -6,7 +6,7 @@ class ProcessReportWorker
     @cache_service = cache_service
   end
 
-  def perform(message)
+  def perform
     ProccessReportUseCase.new(@cache_service).proccess!
   rescue StandardError => e
     puts 'Error on ProcessReportWorker'

@@ -5,7 +5,7 @@ class Game
   attr_reader :id, :kills, :kills_by_means, :started_at
 
   def initialize(id, kills, kills_by_means, started_at)
-    @id = id
+    @id = id.to_i
     @kills = kills
     @kills_by_means = kills_by_means
     @started_at = started_at
@@ -17,7 +17,7 @@ class Game
 
   def to_h
     {
-      game_id.to_sym => {
+      id.to_s.to_sym => {
         players:,
         kills:,
         kills_by_means:
