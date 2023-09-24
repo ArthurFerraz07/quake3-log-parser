@@ -18,7 +18,7 @@ RSpec.describe MessageBrokerDaemon do
       )
 
       allow(MessageBrokerUseCase).to receive(:new).and_return(use_case)
-      expect(use_case).to receive(:proccess).with('message_body')
+      expect(use_case).to receive(:proccess!).with('message_body')
 
       expect do
         daemon.run!(queue_name)

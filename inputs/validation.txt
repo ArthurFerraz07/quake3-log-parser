@@ -9,36 +9,36 @@
  20:54 Kill: 1022 2 22: <world> killed maria by MOD_UNKNOWN
  20:54 Kill: 1022 2 22: <world> killed maria by MOD_GAUNTLET
  
- 20:54 Kill: 1022 2 22: <world> killed bud by MOD_UNKNOWN
+ 20:54 Kill: 1022 2 22: <world> killed joao by MOD_UNKNOWN
 
  20:54 Kill: 1022 2 22: <world> killed georgia by MOD_GAUNTLET
  20:54 Kill: 1022 2 22: <world> killed georgia by MOD_GAUNTLET
 
  20:54 Kill: 1022 2 22: arthur killed maria by MOD_GAUNTLET
- 20:55 Kill: 1022 2 22: arthur killed bud by MOD_UNKNOWN
+ 20:55 Kill: 1022 2 22: arthur killed joao by MOD_UNKNOWN
  20:56 Kill: 1022 2 22: arthur killed georgia by MOD_GAUNTLET
  20:57 Kill: 1022 2 22: arthur killed ligia by MOD_SHOTGUN
  20:58 Kill: 1022 2 22: arthur killed dayana by MOD_UNKNOWN
  
  20:54 Kill: 1022 2 22: maria killed arthur by MOD_UNKNOWN
- 20:55 Kill: 1022 2 22: maria killed bud by MOD_SHOTGUN
+ 20:55 Kill: 1022 2 22: maria killed joao by MOD_SHOTGUN
  20:56 Kill: 1022 2 22: maria killed georgia by MOD_UNKNOWN
  20:57 Kill: 1022 2 22: maria killed ligia by MOD_SHOTGUN
  20:58 Kill: 1022 2 22: maria killed dayana by MOD_GAUNTLET
  20:58 Kill: 1022 2 22: maria killed dayana by MOD_GAUNTLET
  20:58 Kill: 1022 2 22: maria killed dayana by MOD_SHOTGUN
 
- 20:58 Kill: 1022 2 22: bud killed dayana by MOD_SHOTGUN
- 20:58 Kill: 1022 2 22: bud killed dayana by MOD_UNKNOWN
- 20:56 Kill: 1022 2 22: bud killed georgia by MOD_SHOTGUN
- 20:57 Kill: 1022 2 22: bud killed ligia by MOD_UNKNOWN
- 20:57 Kill: 1022 2 22: bud killed ligia by MOD_GAUNTLET
+ 20:58 Kill: 1022 2 22: joao killed dayana by MOD_SHOTGUN
+ 20:58 Kill: 1022 2 22: joao killed dayana by MOD_UNKNOWN
+ 20:56 Kill: 1022 2 22: joao killed georgia by MOD_SHOTGUN
+ 20:57 Kill: 1022 2 22: joao killed ligia by MOD_UNKNOWN
+ 20:57 Kill: 1022 2 22: joao killed ligia by MOD_GAUNTLET
 
  20:57 Kill: 1022 2 22: georgia killed ligia by MOD_SHOTGUN
  20:57 Kill: 1022 2 22: georgia killed ligia by MOD_SHOTGUN
 
- 20:57 Kill: 1022 2 22: ligia killed bud by MOD_GAUNTLET
- 20:57 Kill: 1022 2 22: ligia killed bud by MOD_SHOTGUN
+ 20:57 Kill: 1022 2 22: ligia killed joao by MOD_GAUNTLET
+ 20:57 Kill: 1022 2 22: ligia killed joao by MOD_SHOTGUN
 
  20:57 Kill: 1022 2 22: dayana killed ligia by MOD_SHOTGUN
  20:57 Kill: 1022 2 22: dayana killed ligia by MOD_GAUNTLET

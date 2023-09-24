@@ -11,7 +11,7 @@ class MessageBrokerDaemon
     puts "[*] Waiting for messages on #{queue_name}. To exit press CTRL+C"
 
     @message_broker_service.subscribe(@channel, queue_name) do |_delivery_info, _properties, body|
-      MessageBrokerUseCase.new(@message_broker_service, @cache_service, @channel).proccess(body)
+      MessageBrokerUseCase.new(@message_broker_service, @cache_service, @channel).proccess!(body)
     end
   end
 end

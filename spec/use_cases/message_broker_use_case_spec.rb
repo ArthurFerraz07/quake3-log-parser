@@ -6,25 +6,25 @@ RSpec.describe MessageBrokerUseCase do
 
   subject(:message_broker_use_case) { described_class.new(message_broker_service, cache_service, channel) }
 
-  describe '#proccess' do
+  describe '#proccess!' do
     context 'when operation is "proccess_kill"' do
       it 'delegates to ProcessKillWorker' do
         expect(ProcessKillWorker).to receive(:new).with(cache_service, message_broker_service, channel).and_return(double('ProcessKillWorker', perform: nil))
-        message_broker_use_case.proccess(json_body)
+        message_broker_use_case.proccess!(json_body)
       end
     end
 
     context 'when operation is "proccess_report"' do
       it 'delegates to ProcessReportWorker' do
         expect(ProcessReportWorker).to receive(:new).with(cache_service).and_return(double('ProcessReportWorker', perform: nil))
-        message_broker_use_case.proccess(json_body.gsub('proccess_kill', 'proccess_report'))
+        message_broker_use_case.proccess!(json_body.gsub('proccess_kill', 'proccess_report'))
       end
     end
 
     context 'when operation is "read_log"' do
       it 'delegates to ReadLogWorker' do
         expect(ReadLogWorker).to receive(:new).with(cache_service, message_broker_service, channel).and_return(double('ReadLogWorker', perform: nil))
-        message_broker_use_case.proccess('{"operation": "read_log", "file": "example.log"}')
+        message_broker_use_case.proccess!('{"operation": "read_log", "file": "example.log"}')
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe MessageBrokerUseCase do
         expect(ProcessKillWorker).not_to receive(:new)
         expect(ProcessReportWorker).not_to receive(:new)
         expect(ReadLogWorker).not_to receive(:new)
-        message_broker_use_case.proccess('{"operation": "unknown_operation"}')
+        message_broker_use_case.proccess!('{"operation": "unknown_operation"}')
       end
     end
   end
