@@ -2,12 +2,16 @@ RSpec.describe ProccessReportUseCase do
   let(:cache_service) { double('CacheService') }
   let(:games_count) { 1 }
   let(:game_id) { 1 }
+  let(:execution_finished_at) { '100' }
 
   subject(:use_case) { described_class.new(cache_service) }
 
   describe '#proccess!' do
     it 'returns a report with players rank, games, and kills by means' do
+      allow(Time).to receive(:now).and_return(execution_finished_at)
+
       expect(cache_service).to receive(:get).with('games_count').and_return(games_count.to_s)
+      expect(cache_service).to receive(:set).with('execution_finished_at', execution_finished_at.to_i)
 
       allow(use_case).to receive(:report_players_rank).and_return('players_rank')
       allow(use_case).to receive(:report_games_base_data).and_return('games')

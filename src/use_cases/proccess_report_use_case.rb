@@ -33,7 +33,7 @@ class ProccessReportUseCase
       kills_by_means:
     }
 
-    ap report
+    @cache_service.set('execution_finished_at', Time.now.to_i)
 
     report
   end

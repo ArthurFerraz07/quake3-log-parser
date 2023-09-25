@@ -5,6 +5,7 @@ RSpec.describe ReadLogUseCase do
   let(:message_broker_service) { instance_double('MessageBrokerService') }
   let(:channel) { BunnyMock.new.create_channel }
   let(:file_name) { 'test.message_broker_daemon_cluster' }
+  let(:message_broker_cluster_name) { 'message_broker_daemon_cluster' }
 
   subject(:read_log_use_case) { described_class.new(cache_service, message_broker_service, channel) }
 
@@ -12,6 +13,7 @@ RSpec.describe ReadLogUseCase do
     allow(cache_service).to receive(:flushall)
     allow(FileService).to receive(:readlines).with(file_name).and_return(log_lines)
     allow(cache_service).to receive(:set)
+    allow(ENV).to receive(:[]).with('MESSAGE_BROKER_CLUSTER_NAME').and_return(message_broker_cluster_name)
   end
 
   describe '#read!' do
@@ -34,7 +36,7 @@ RSpec.describe ReadLogUseCase do
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'message_broker_daemon_cluster',
+          message_broker_cluster_name,
           {
             operation: 'proccess_kill',
             game_id: 1,
@@ -45,7 +47,7 @@ RSpec.describe ReadLogUseCase do
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'message_broker_daemon_cluster',
+          message_broker_cluster_name,
           {
             operation: 'proccess_kill',
             game_id: 1,
@@ -56,7 +58,7 @@ RSpec.describe ReadLogUseCase do
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'message_broker_daemon_cluster',
+          message_broker_cluster_name,
           {
             operation: 'proccess_kill',
             game_id: 2,
@@ -67,7 +69,7 @@ RSpec.describe ReadLogUseCase do
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'message_broker_daemon_cluster',
+          message_broker_cluster_name,
           {
             operation: 'proccess_kill',
             game_id: 2,
@@ -78,7 +80,7 @@ RSpec.describe ReadLogUseCase do
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'message_broker_daemon_cluster',
+          message_broker_cluster_name,
           {
             operation: 'proccess_kill',
             game_id: 2,

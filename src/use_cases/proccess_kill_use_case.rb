@@ -19,7 +19,7 @@ class ProccessKillUseCase
     RegistryDeathUseCase.new(@cache_service).registry!(kill)
 
     if log_line.last_kill
-      @message_broker_service.publish(@channel, 'runner', {
+      @message_broker_service.publish(@channel, ENV['RUNNER_CLUSTER_NAME'], {
         operation: 'proccess_report'
       }.to_json)
     end
