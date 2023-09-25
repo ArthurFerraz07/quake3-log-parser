@@ -33,6 +33,8 @@ group :test do
   gem 'mock_redis'
   # SimpleCov is a code coverage analysis tool for Ruby
   gem 'simplecov'
+  # simplecov-json is a SimpleCov formatter generating JSON output
+  gem 'simplecov-json'
   # A gem providing "time travel" and "time freezing" capabilities, making it dead simple to test time-dependent code
   gem 'timecop'
 end

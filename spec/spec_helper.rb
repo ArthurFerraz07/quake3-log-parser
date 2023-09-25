@@ -13,3 +13,10 @@ Dir['./src/*.rb'].each { |file| require "./#{file}" }
 
 Bundler.require(:default)
 Bundler.require(:test)
+
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::JSONFormatter
+  ]
+)
