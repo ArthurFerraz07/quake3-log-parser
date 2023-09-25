@@ -136,6 +136,8 @@ The report is a JSON with the following structure:
 
 
 ## Running tests
+The solution have 100% of test coverage. To run the tests:
+
 - Clone this repository
 - Go to the project folder
 - Run `bundle install`
