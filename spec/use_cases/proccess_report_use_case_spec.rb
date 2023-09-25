@@ -7,11 +7,20 @@ RSpec.describe ProccessReportUseCase do
   subject(:use_case) { described_class.new(cache_service) }
 
   describe '#proccess!' do
+    let(:expected_report) do
+      {
+        players_rank: 'players_rank',
+        games: 'games',
+        kills_by_means: 'kills_by_means'
+      }
+    end
+
     it 'returns a report with players rank, games, and kills by means' do
       allow(Time).to receive(:now).and_return(execution_finished_at)
 
       expect(cache_service).to receive(:get).with('games_count').and_return(games_count.to_s)
       expect(cache_service).to receive(:set).with('execution_finished_at', execution_finished_at.to_i)
+      expect(cache_service).to receive(:set).with('report', expected_report.to_json)
 
       allow(use_case).to receive(:report_players_rank).and_return('players_rank')
       allow(use_case).to receive(:report_games_base_data).and_return('games')
@@ -19,13 +28,7 @@ RSpec.describe ProccessReportUseCase do
 
       report = use_case.proccess!
 
-      expect(report).to eq(
-        {
-          players_rank: 'players_rank',
-          games: 'games',
-          kills_by_means: 'kills_by_means'
-        }
-      )
+      expect(report).to eq(expected_report)
     end
   end
 

@@ -7,6 +7,8 @@ class ProccessReportUseCase
   end
 
   def proccess!
+    LoggerService.log('Starting proccessing report...')
+
     games_count = @cache_service.get('games_count').to_i
 
     players_rank = nil
@@ -33,7 +35,10 @@ class ProccessReportUseCase
       kills_by_means:
     }
 
+    LoggerService.log('Report proccessed successfully')
+
     @cache_service.set('execution_finished_at', Time.now.to_i)
+    @cache_service.set('report', report.to_json)
 
     report
   end

@@ -12,9 +12,11 @@ app.message_broker_service.start_connection
 
 main_channel = MessageBrokerService.create_channel(app.message_broker_service.connection)
 
-ReadLogWorker.new(app.cache_service, app.message_broker_service, main_channel, ENV['MESSAGE_BROKER_CLUSTER_NAME']).perform(file)
+LoggerService.log('Starting reading log file...')
 
-ap "Finished reading log file at #{Time.now.to_i}"
+ReadLogWorker.new(app.cache_service, app.message_broker_service, main_channel).perform(file)
+
+LoggerService.log('Finished reading log file')
 
 consumer_channel = MessageBrokerService.create_channel(app.message_broker_service.connection)
 
