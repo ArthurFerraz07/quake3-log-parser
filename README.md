@@ -186,6 +186,8 @@ The solution have 100% of test coverage. To run the tests:
 - Run `bundle install`
 - Run `bundle exec rspec -f d`
 
+![Test coverage](docs/test_coverage.png)
+
 ## Architecture
 
 Clean architecture was used to build this application. The main idea is to separate the application in layers, where each layer has a specific responsibility. The layers are:
