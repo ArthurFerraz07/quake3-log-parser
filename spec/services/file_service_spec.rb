@@ -28,4 +28,36 @@ RSpec.describe FileService do
       end
     end
   end
+
+  describe '.write' do
+    let(:file_path) { 'test_file.txt' }
+    let(:content) { 'This is a test content.' }
+
+    context 'when the file does not exist' do
+      it 'creates a new file and writes the content to it' do
+        FileService.write(file_path, content)
+        expect(File.exist?(file_path)).to be true
+
+        file_contents = File.read(file_path)
+        expect(file_contents).to eq content
+      end
+    end
+
+    context 'when the file already exists' do
+      before do
+        File.open(file_path, 'w') { |f| f.write('Existing content') }
+      end
+
+      it 'overwrites the existing file content with the new content' do
+        FileService.write(file_path, content)
+
+        file_contents = File.read(file_path)
+        expect(file_contents).to eq content
+      end
+    end
+
+    after do
+      File.delete(file_path) if File.exist?(file_path)
+    end
+  end
 end

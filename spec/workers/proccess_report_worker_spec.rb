@@ -30,4 +30,24 @@ RSpec.describe ProcessReportWorker do
       end
     end
   end
+
+  describe 'finish_callback' do
+    it 'prints the report' do
+      allow($stdout).to receive(:puts)
+
+      allow_any_instance_of(Object).to receive(:exit) do |_, status|
+        expect(status).to eq(0)
+      end
+
+      report = { name: 'Test User', age: 25, city: 'Test City' }
+
+      callback_proc = worker.send(:finish_callback)
+      callback_proc.call(report)
+
+      report_json = JSON.pretty_generate(report)
+
+      expect($stdout).to have_received(:puts).with('----------------------------------------------------------------------------------------------------').twice
+      expect($stdout).to have_received(:puts).with(report_json)
+    end
+  end
 end
