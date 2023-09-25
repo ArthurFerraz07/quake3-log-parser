@@ -5,6 +5,11 @@ services:
     container_name: quake_redis
     ports:
       - "6380:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 3s
+      timeout: 30s
+      retries: 15
 
   rabbitmq:
     image: "rabbitmq:3.8-management"
@@ -17,7 +22,7 @@ services:
       RABBITMQ_DEFAULT_PASS: InfIniteP@y
     healthcheck:
       test: rabbitmq-diagnostics check_port_connectivity
-      interval: 10s
+      interval: 3s
       timeout: 30s
       retries: 15
 
@@ -28,17 +33,13 @@ services:
     command: ["bundle", "exec", "ruby", "message_broker.rb"]
     container_name: message_broker_daemon_cluster_1
     depends_on:
+      redis:
+        condition: service_healthy
       rabbitmq:
         condition: service_healthy
-    environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=Cl0udW@lk
-      - RABBITMQ_PASSWORD=InfIniteP@y
-      - RABBITMQ_PORT=5672
-      - MESSAGE_BROKER_CLUSTER_NAME=message_broker
-      - RUNNER_CLUSTER_NAME=runner
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+    env_file:
+      - .env.example
+      - .env
 
   message_broker_daemon_cluster_2:
     build:
@@ -47,17 +48,13 @@ services:
     command: ["bundle", "exec", "ruby", "message_broker.rb"]
     container_name: message_broker_daemon_cluster_2
     depends_on:
+      redis:
+        condition: service_healthy
       rabbitmq:
         condition: service_healthy
-    environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=Cl0udW@lk
-      - RABBITMQ_PASSWORD=InfIniteP@y
-      - RABBITMQ_PORT=5672
-      - MESSAGE_BROKER_CLUSTER_NAME=message_broker
-      - RUNNER_CLUSTER_NAME=runner
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+    env_file:
+      - .env.example
+      - .env
   
   message_broker_daemon_cluster_3:
     build:
@@ -66,17 +63,13 @@ services:
     command: ["bundle", "exec", "ruby", "message_broker.rb"]
     container_name: message_broker_daemon_cluster_3
     depends_on:
+      redis:
+        condition: service_healthy
       rabbitmq:
         condition: service_healthy
-    environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=Cl0udW@lk
-      - RABBITMQ_PASSWORD=InfIniteP@y
-      - RABBITMQ_PORT=5672
-      - MESSAGE_BROKER_CLUSTER_NAME=message_broker
-      - RUNNER_CLUSTER_NAME=runner
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+    env_file:
+      - .env.example
+      - .env
 
   message_broker_daemon_cluster_4:
     build:
@@ -85,17 +78,13 @@ services:
     command: ["bundle", "exec", "ruby", "message_broker.rb"]
     container_name: message_broker_daemon_cluster_4
     depends_on:
+      redis:
+        condition: service_healthy
       rabbitmq:
         condition: service_healthy
-    environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=Cl0udW@lk
-      - RABBITMQ_PASSWORD=InfIniteP@y
-      - RABBITMQ_PORT=5672
-      - MESSAGE_BROKER_CLUSTER_NAME=message_broker
-      - RUNNER_CLUSTER_NAME=runner
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+    env_file:
+      - .env.example
+      - .env
 
   message_broker_daemon_cluster_5:
     build:
@@ -104,32 +93,25 @@ services:
     command: ["bundle", "exec", "ruby", "message_broker.rb"]
     container_name: message_broker_daemon_cluster_5
     depends_on:
+      redis:
+        condition: service_healthy
       rabbitmq:
         condition: service_healthy
-    environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=Cl0udW@lk
-      - RABBITMQ_PASSWORD=InfIniteP@y
-      - RABBITMQ_PORT=5672
-      - MESSAGE_BROKER_CLUSTER_NAME=message_broker
-      - RUNNER_CLUSTER_NAME=runner
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+    env_file:
+      - .env.example
+      - .env
 
   runner:
     build:
       context: .
       dockerfile: Runner.Dockerfile
-    command: ["bundle", "exec", "ruby", "runner.rb", "./input/big_example.txt"]
+    command: ["bundle", "exec", "ruby", "runner.rb"]
     container_name: runner
     depends_on:
-      - message_broker_daemon_cluster_1
-    environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=Cl0udW@lk
-      - RABBITMQ_PASSWORD=InfIniteP@y
-      - RABBITMQ_PORT=5672
-      - MESSAGE_BROKER_CLUSTER_NAME=message_broker
-      - RUNNER_CLUSTER_NAME=runner
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    env_file:
+      - .env.example
+      - .env

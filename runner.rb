@@ -4,7 +4,7 @@ require './config'
 
 default_file = './input/example.txt'
 
-file = ARGV[0] || default_file
+file = ENV['LOG_FILE'] || default_file
 
 app = Application.instance
 
@@ -19,9 +19,10 @@ ReadLogWorker.new(app.cache_service, app.message_broker_service, main_channel).p
 LoggerService.log('Finished reading log file')
 
 consumer_channel = MessageBrokerService.create_channel(app.message_broker_service.connection)
+publisher_channel = MessageBrokerService.create_channel(app.message_broker_service.connection)
 
-app.message_broker_service.subscribe(consumer_channel, ENV['RUNNER_CLUSTER_NAME']) do |_delivery_info, _properties, body|
-  MessageBrokerUseCase.new(app.message_broker_service, app.cache_service, main_channel).proccess!(body)
-end
+queue = ENV['RUNNER_CLUSTER_NAME'] || 'runner'
+
+MessageBrokerDaemon.new(app.message_broker_service, app.cache_service).subscribe!(consumer_channel, publisher_channel, queue)
 
 app.message_broker_service.close_connection

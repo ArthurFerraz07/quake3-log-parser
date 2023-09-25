@@ -6,5 +6,11 @@ class FileService
     def readlines(path)
       File.readlines(path, chomp: true)
     end
+
+    def write(path, content)
+      File.open(path, 'w+') do |f|
+        f.write(content)
+      end
+    end
   end
 end

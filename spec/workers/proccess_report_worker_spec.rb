@@ -2,9 +2,11 @@
 
 RSpec.describe ProcessReportWorker do
   let(:cache_service) { double('CacheService') }
+  let(:message_broker_service) { double('MessageBrokerService') }
+  let(:channel) { BunnyMock.new.create_channel }
   let(:use_case) { instance_double(ProccessReportUseCase) }
 
-  subject(:worker) { described_class.new(cache_service) }
+  subject(:worker) { described_class.new(cache_service, message_broker_service, channel) }
 
   describe '#perform' do
     context 'when ProccessReportUseCase succeeds' do

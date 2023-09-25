@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+class KillException < StandardError; end
+
 # This class represents a kill
 class Kill
   MEANS_OF_DEATH = {
@@ -42,5 +44,16 @@ class Kill
     @killer = killer
     @killed = killed
     @mean_of_death = mean_of_death
+    validate_mean_of_death
+  end
+
+  private
+
+  def validate_mean_of_death
+    mean_of_death_ = MEANS_OF_DEATH[mean_of_death&.to_sym || '']
+
+    raise KillException, "#{mean_of_death} is not a valid mean of death" unless mean_of_death_
+
+    @mean_of_death = mean_of_death_
   end
 end

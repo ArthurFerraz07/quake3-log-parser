@@ -4,6 +4,7 @@ require 'simplecov'
 SimpleCov.start
 
 Dir['./src/daemons/*.rb'].each { |file| require "./#{file}" }
+Dir['./src/helpers/*.rb'].each { |file| require "./#{file}" }
 Dir['./src/models/*.rb'].each { |file| require "./#{file}" }
 Dir['./src/services/*.rb'].each { |file| require "./#{file}" }
 Dir['./src/use_cases/*.rb'].each { |file| require "./#{file}" }

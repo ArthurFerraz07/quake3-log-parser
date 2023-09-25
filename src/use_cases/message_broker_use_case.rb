@@ -15,7 +15,7 @@ class MessageBrokerUseCase
     when 'proccess_kill'
       ProcessKillWorker.new(@cache_service, @message_broker_service, @channel).perform(parsed_body)
     when 'proccess_report'
-      ProcessReportWorker.new(@cache_service).perform
+      ProcessReportWorker.new(@cache_service, @message_broker_service, @channel).perform
     when 'read_log'
       ReadLogWorker.new(@cache_service, @message_broker_service, @channel).perform(parsed_body['file'])
     end

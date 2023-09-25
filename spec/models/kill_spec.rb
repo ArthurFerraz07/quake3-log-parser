@@ -72,4 +72,12 @@ RSpec.describe Kill do
       expect(Kill::MEANS_OF_DEATH).to eq(mean_of_death)
     end
   end
+
+  describe '#validate_mean_of_death' do
+    let(:mean_of_death) { 'invalid mean' }
+
+    it 'expect return' do
+      expect { described_class.new(game_id, killer, killed, mean_of_death) }.to raise_error(KillException, 'invalid mean is not a valid mean of death')
+    end
+  end
 end

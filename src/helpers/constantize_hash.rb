@@ -2,7 +2,12 @@
 
 class ConstantizeHashException < StandardError; end
 
-# This class transforms a constant hash into a class constant
+# This class creates class constants given a class and a hash
+# The keys of the hash will be the constant names, and the values will be the constant values
+# Example:
+#   hash = { 'FOO' => 'bar' }
+#   ConstantizeHash.constantize!(SomeClass, hash)
+#   SomeClass::FOO # => 'bar'
 class ConstantizeHash
   class << self
     def constantize!(klass, const_name)

@@ -16,7 +16,7 @@ RSpec.describe MessageBrokerUseCase do
 
     context 'when operation is "proccess_report"' do
       it 'delegates to ProcessReportWorker' do
-        expect(ProcessReportWorker).to receive(:new).with(cache_service).and_return(double('ProcessReportWorker', perform: nil))
+        expect(ProcessReportWorker).to receive(:new).with(cache_service, message_broker_service, channel).and_return(double('ProcessReportWorker', perform: nil))
         message_broker_use_case.proccess!(json_body.gsub('proccess_kill', 'proccess_report'))
       end
     end

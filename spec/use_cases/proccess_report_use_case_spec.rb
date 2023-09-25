@@ -1,10 +1,13 @@
 RSpec.describe ProccessReportUseCase do
   let(:cache_service) { double('CacheService') }
+  let(:message_broker_service) { double('MessageBrokerService') }
+  let(:channel) { BunnyMock.new.create_channel }
   let(:games_count) { 1 }
   let(:game_id) { 1 }
   let(:execution_finished_at) { '100' }
+  let(:finish_callback) { proc {} }
 
-  subject(:use_case) { described_class.new(cache_service) }
+  subject(:use_case) { described_class.new(cache_service, message_broker_service, channel) }
 
   describe '#proccess!' do
     let(:expected_report) do
@@ -26,7 +29,7 @@ RSpec.describe ProccessReportUseCase do
       allow(use_case).to receive(:report_games_base_data).and_return('games')
       allow(use_case).to receive(:report_games_kills_by_means).and_return('kills_by_means')
 
-      report = use_case.proccess!
+      report = use_case.proccess!(finish_callback)
 
       expect(report).to eq(expected_report)
     end
