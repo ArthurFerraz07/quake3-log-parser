@@ -29,6 +29,8 @@ class Application
     @message_broker_service = MessageBrokerService.new(MessageBrokerService.build_connection(message_broker_params))
     @cache_service = CacheService.new(CacheService.build_connection(cache_params))
 
+    ConstantizeHash.constantize!(Kill, :MEANS_OF_DEATH)
+
     p 'Application is running!'
     p "Started at: #{@started_at}"
   end

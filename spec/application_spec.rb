@@ -21,6 +21,8 @@ RSpec.describe Application do
       expect(MessageBrokerService).to receive(:build_connection).with(message_broker_params)
       expect(CacheService).to receive(:build_connection).with(cache_params)
 
+      expect(ConstantizeHash).to receive(:constantize!).with(Kill, :MEANS_OF_DEATH)
+
       application.run!(message_broker_params, cache_params)
       expect(application.message_broker_service).to be_a(MessageBrokerService)
       expect(application.cache_service).to be_a(CacheService)

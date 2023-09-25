@@ -28,7 +28,7 @@ class ReadLogUseCase
 
       next unless log.include?('Kill')
 
-      @message_broker_service.publish(@channel, 'log', {
+      @message_broker_service.publish(@channel, 'message_broker_daemon_cluster', {
         operation: 'proccess_kill',
         game_id: current_game,
         content: log,

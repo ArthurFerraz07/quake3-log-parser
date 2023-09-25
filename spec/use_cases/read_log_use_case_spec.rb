@@ -4,7 +4,7 @@ RSpec.describe ReadLogUseCase do
   let(:cache_service) { instance_double('CacheService') }
   let(:message_broker_service) { instance_double('MessageBrokerService') }
   let(:channel) { BunnyMock.new.create_channel }
-  let(:file_name) { 'test.log' }
+  let(:file_name) { 'test.message_broker_daemon_cluster' }
 
   subject(:read_log_use_case) { described_class.new(cache_service, message_broker_service, channel) }
 
@@ -15,7 +15,7 @@ RSpec.describe ReadLogUseCase do
   end
 
   describe '#read!' do
-    context 'when the log file contains relevant data' do
+    context 'when the message_broker_daemon_cluster file contains relevant data' do
       let(:log_lines) do
         [
           'InitGame: 1',
@@ -28,13 +28,13 @@ RSpec.describe ReadLogUseCase do
         ]
       end
 
-      it 'reads and publishes log entries to the message broker' do
+      it 'reads and publishes message_broker_daemon_cluster entries to the message broker' do
         expect(cache_service).to receive(:flushall)
         expect(FileService).to receive(:readlines).with(file_name).and_return(log_lines)
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'log',
+          'message_broker_daemon_cluster',
           {
             operation: 'proccess_kill',
             game_id: 1,
@@ -45,7 +45,7 @@ RSpec.describe ReadLogUseCase do
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'log',
+          'message_broker_daemon_cluster',
           {
             operation: 'proccess_kill',
             game_id: 1,
@@ -56,7 +56,7 @@ RSpec.describe ReadLogUseCase do
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'log',
+          'message_broker_daemon_cluster',
           {
             operation: 'proccess_kill',
             game_id: 2,
@@ -67,7 +67,7 @@ RSpec.describe ReadLogUseCase do
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'log',
+          'message_broker_daemon_cluster',
           {
             operation: 'proccess_kill',
             game_id: 2,
@@ -78,7 +78,7 @@ RSpec.describe ReadLogUseCase do
 
         expect(message_broker_service).to receive(:publish).with(
           channel,
-          'log',
+          'message_broker_daemon_cluster',
           {
             operation: 'proccess_kill',
             game_id: 2,
@@ -93,7 +93,7 @@ RSpec.describe ReadLogUseCase do
       end
     end
 
-    context 'when the log file does not contain relevant data' do
+    context 'when the message_broker_daemon_cluster file does not contain relevant data' do
       let(:log_lines) do
         [
           'InitGame: 1',
@@ -102,7 +102,7 @@ RSpec.describe ReadLogUseCase do
         ]
       end
 
-      it 'does not publish any log entries' do
+      it 'does not publish any message_broker_daemon_cluster entries' do
         expect(cache_service).to receive(:flushall)
         expect(FileService).to receive(:readlines).with(file_name).and_return(log_lines)
         expect(cache_service).to receive(:set).with('games_count', 1)

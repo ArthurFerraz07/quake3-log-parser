@@ -4,7 +4,7 @@ RSpec.describe Kill do
   let(:game_id) { 1 }
   let(:killer) { 'Player1' }
   let(:killed) { 'Player2' }
-  let(:mean_of_death) { Kill::MeanOfDeath::MOD_SHOTGUN }
+  let(:mean_of_death) { Kill::MEANS_OF_DEATH[:MOD_WATER] }
 
   subject(:kill) { described_class.new(game_id, killer, killed, mean_of_death) }
 
@@ -32,38 +32,44 @@ RSpec.describe Kill do
     end
   end
 
-  describe 'MeanOfDeath constants' do
+  describe 'MEANS_OF_DEATH constant' do
+    let(:mean_of_death) do
+      {
+        MOD_UNKNOWN: 'MOD_UNKNOWN',
+        MOD_SHOTGUN: 'MOD_SHOTGUN',
+        MOD_GAUNTLET: 'MOD_GAUNTLET',
+        MOD_MACHINEGUN: 'MOD_MACHINEGUN',
+        MOD_GRENADE: 'MOD_GRENADE',
+        MOD_GRENADE_SPLASH: 'MOD_GRENADE_SPLASH',
+        MOD_ROCKET: 'MOD_ROCKET',
+        MOD_ROCKET_SPLASH: 'MOD_ROCKET_SPLASH',
+        MOD_PLASMA: 'MOD_PLASMA',
+        MOD_PLASMA_SPLASH: 'MOD_PLASMA_SPLASH',
+        MOD_RAILGUN: 'MOD_RAILGUN',
+        MOD_LIGHTNING: 'MOD_LIGHTNING',
+        MOD_BFG: 'MOD_BFG',
+        MOD_BFG_SPLASH: 'MOD_BFG_SPLASH',
+        MOD_WATER: 'MOD_WATER',
+        MOD_SLIME: 'MOD_SLIME',
+        MOD_LAVA: 'MOD_LAVA',
+        MOD_CRUSH: 'MOD_CRUSH',
+        MOD_TELEFRAG: 'MOD_TELEFRAG',
+        MOD_FALLING: 'MOD_FALLING',
+        MOD_SUICIDE: 'MOD_SUICIDE',
+        MOD_TARGET_LASER: 'MOD_TARGET_LASER',
+        MOD_TRIGGER_HURT: 'MOD_TRIGGER_HURT',
+        MISSIONPACK: 'MISSIONPACK',
+        MOD_NAIL: 'MOD_NAIL',
+        MOD_CHAINGUN: 'MOD_CHAINGUN',
+        MOD_PROXIMITY_MINE: 'MOD_PROXIMITY_MINE',
+        MOD_KAMIKAZE: 'MOD_KAMIKAZE',
+        MOD_JUICED: 'MOD_JUICED',
+        MOD_GRAPPLE: 'MOD_GRAPPLE'
+      }
+    end
+
     it 'defines expected MOD constants' do
-      expect(Kill::MeanOfDeath::MOD_UNKNOWN).to eq('MOD_UNKNOWN')
-      expect(Kill::MeanOfDeath::MOD_SHOTGUN).to eq('MOD_SHOTGUN')
-      expect(Kill::MeanOfDeath::MOD_GAUNTLET).to eq('MOD_GAUNTLET')
-      expect(Kill::MeanOfDeath::MOD_MACHINEGUN).to eq('MOD_MACHINEGUN')
-      expect(Kill::MeanOfDeath::MOD_GRENADE).to eq('MOD_GRENADE')
-      expect(Kill::MeanOfDeath::MOD_GRENADE_SPLASH).to eq('MOD_GRENADE_SPLASH')
-      expect(Kill::MeanOfDeath::MOD_ROCKET).to eq('MOD_ROCKET')
-      expect(Kill::MeanOfDeath::MOD_ROCKET_SPLASH).to eq('MOD_ROCKET_SPLASH')
-      expect(Kill::MeanOfDeath::MOD_PLASMA).to eq('MOD_PLASMA')
-      expect(Kill::MeanOfDeath::MOD_PLASMA_SPLASH).to eq('MOD_PLASMA_SPLASH')
-      expect(Kill::MeanOfDeath::MOD_RAILGUN).to eq('MOD_RAILGUN')
-      expect(Kill::MeanOfDeath::MOD_LIGHTNING).to eq('MOD_LIGHTNING')
-      expect(Kill::MeanOfDeath::MOD_BFG).to eq('MOD_BFG')
-      expect(Kill::MeanOfDeath::MOD_BFG_SPLASH).to eq('MOD_BFG_SPLASH')
-      expect(Kill::MeanOfDeath::MOD_WATER).to eq('MOD_WATER')
-      expect(Kill::MeanOfDeath::MOD_SLIME).to eq('MOD_SLIME')
-      expect(Kill::MeanOfDeath::MOD_LAVA).to eq('MOD_LAVA')
-      expect(Kill::MeanOfDeath::MOD_CRUSH).to eq('MOD_CRUSH')
-      expect(Kill::MeanOfDeath::MOD_TELEFRAG).to eq('MOD_TELEFRAG')
-      expect(Kill::MeanOfDeath::MOD_FALLING).to eq('MOD_FALLING')
-      expect(Kill::MeanOfDeath::MOD_SUICIDE).to eq('MOD_SUICIDE')
-      expect(Kill::MeanOfDeath::MOD_TARGET_LASER).to eq('MOD_TARGET_LASER')
-      expect(Kill::MeanOfDeath::MOD_TRIGGER_HURT).to eq('MOD_TRIGGER_HURT')
-      expect(Kill::MeanOfDeath::MISSIONPACK).to eq('MISSIONPACK')
-      expect(Kill::MeanOfDeath::MOD_NAIL).to eq('MOD_NAIL')
-      expect(Kill::MeanOfDeath::MOD_CHAINGUN).to eq('MOD_CHAINGUN')
-      expect(Kill::MeanOfDeath::MOD_PROXIMITY_MINE).to eq('MOD_PROXIMITY_MINE')
-      expect(Kill::MeanOfDeath::MOD_KAMIKAZE).to eq('MOD_KAMIKAZE')
-      expect(Kill::MeanOfDeath::MOD_JUICED).to eq('MOD_JUICED')
-      expect(Kill::MeanOfDeath::MOD_GRAPPLE).to eq('MOD_GRAPPLE')
+      expect(Kill::MEANS_OF_DEATH).to eq(mean_of_death)
     end
   end
 end

@@ -2,7 +2,7 @@
 
 require './config'
 
-queue = ARGV[0] || 'log'
+queue = ARGV[0] || 'message_broker_daemon_cluster'
 
 app = Application.instance
 
